@@ -1,13 +1,14 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask import Flask, request, flash, url_for, redirect, render_template
+from flask_migrate import Migrate
 import os
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test.db'
 app.secret_key = os.urandom(32)
 db = SQLAlchemy(app)
-
+migrate = Migrate(app, db)
 
 class Contacts(db.Model):
     id = db.Column(db.Integer, primary_key=True)
